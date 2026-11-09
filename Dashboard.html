@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CurtinApp</title>
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar glass">
+        <div class="brand"><i class='bx bxs-graduation'></i> CurtinApp</div>
+
+        <nav class="menu">
+            <a href="dashboard.html" class="active"><i class='bx bxs-dashboard'></i> Dashboard</a>
+            <a href="tugas.html"><i class='bx bx-task'></i> Tugas</a>
+            <a href="jadwal.html"><i class='bx bx-calendar'></i> Jadwal Belajar</a>
+            <a href="matakuliah.html"><i class='bx bx-book-bookmark'></i> Mata Kuliah</a>
+            <a href="profil.html"><i class='bx bx-user'></i> Profil</a>
+        </nav>
+    </aside>
+
+    <!-- ========== KONTEN UTAMA ========== -->
+    <main class="main glass">
+
+        <div class="greeting">
+            <h1>
+                <span id="sapaan">Good Afternoon</span>,
+                <span id="nama" spellcheck="false">Jordan</span>
+                <button class="edit-name" id="editNama" type="button" aria-label="Ubah nama" title="Ubah nama">
+                    <i class='bx bx-edit-alt'></i>
+                </button>
+            </h1>
+            <div class="alert">
+                <i class='bx bxs-error-circle'></i>
+                <span>You have 2 assignments due this week!</span>
+            </div>
+        </div>
+
+        <!-- Tugas Mendekati Deadline -->
+        <div class="section-head">
+            <h2>Tugas Mendekati Deadline</h2>
+            <a href="tugas.html">View all</a>
+        </div>
+
+        <div class="deadline-grid">
+            <div class="task-card">
+                <i class='bx bx-file'></i>
+                <h3>Tugas 1</h3>
+                <p class="course">Matakuliah A</p>
+                <p class="due">Due: 2 hari lagi</p>
+                <div class="progress"><div class="bar"><span style="width:50%"></span></div>50%</div>
+            </div>
+            <div class="task-card">
+                <i class='bx bx-file'></i>
+                <h3>Tugas 2</h3>
+                <p class="course">Matakuliah B</p>
+                <p class="due">Due: 3 hari lagi</p>
+                <div class="progress"><div class="bar"><span style="width:75%"></span></div>75%</div>
+            </div>
+            <div class="task-card">
+                <i class='bx bx-file'></i>
+                <h3>Tugas 3</h3>
+                <p class="course">Matakuliah C</p>
+                <p class="due">Due: 4 hari lagi</p>
+                <div class="progress"><div class="bar"><span style="width:25%"></span></div>25%</div>
+            </div>
+            <div class="task-card">
+                <i class='bx bx-file'></i>
+                <h3>Tugas 4</h3>
+                <p class="course">Matakuliah D</p>
+                <p class="due">Due: 4 hari lagi</p>
+                <div class="progress"><div class="bar"><span style="width:60%"></span></div>60%</div>
+            </div>
+        </div>
+
+        <!-- Tabel Tugas -->
+        <div class="section-head">
+            <h2>Tugas</h2>
+            <button class="btn" type="button"><i class='bx bx-plus'></i> New Task</button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Judul</th>
+                        <th>Mata Kuliah</th>
+                        <th>Tanggal Diberikan</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th>Prioritas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" class="check"></td>
+                        <td class="judul">Research Images</td>
+                        <td>Desain Grafis</td>
+                        <td>Aug 6</td>
+                        <td>Aug 18</td>
+                        <td><span class="status"><i class="dot jalan"></i>Dikerjakan</span></td>
+                        <td><span class="badge tinggi">Tinggi</span></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="check"></td>
+                        <td class="judul">Document Images</td>
+                        <td>Desain Grafis</td>
+                        <td>Aug 6</td>
+                        <td>Aug 18</td>
+                        <td><span class="status"><i class="dot belum"></i>Belum Mulai</span></td>
+                        <td><span class="badge sedang">Sedang</span></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="check" checked></td>
+                        <td class="judul">Confirm Concepts</td>
+                        <td>UI/UX</td>
+                        <td>Aug 6</td>
+                        <td>Aug 18</td>
+                        <td><span class="status"><i class="dot selesai"></i>Selesai</span></td>
+                        <td><span class="badge rendah">Rendah</span></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="check"></td>
+                        <td class="judul">Transcribe Interviews</td>
+                        <td>Komunikasi</td>
+                        <td>Aug 6</td>
+                        <td>Aug 18</td>
+                        <td><span class="status"><i class="dot jalan"></i>Dikerjakan</span></td>
+                        <td><span class="badge sedang">Sedang</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- ========== PANEL KANAN ========== -->
+    <aside class="right glass">
+        <div class="top-actions">
+            <button class="icon-btn notif" type="button" aria-label="Notifikasi"><i class='bx bxs-bell'></i></button>
+            <button class="icon-btn" type="button" aria-label="Profil"><i class='bx bxs-user'></i></button>
+        </div>
+
+        <h2>Class Schedule</h2>
+
+        <div class="day"><span>MON</span>
+            <div class="event"><b>Game Design Introduction</b><small>2:00 PM - 5:00 PM</small></div>
+        </div>
+        <div class="day"><span>TUE</span>
+            <div class="event"><b>Start Design Thinking</b><small>2:00 PM - 5:00 PM</small></div>
+        </div>
+        <div class="day"><span>WED</span>
+            <div class="event"><b>DigEx Design Studio</b><small>2:00 PM - 5:00 PM</small></div>
+        </div>
+        <div class="day"><span>THU</span>
+            <div class="event pink"><b>Project Proposal</b><small>11:59 PM</small></div>
+        </div>
+        <div class="day"><span>FRI</span>
+            <div class="event pink"><b>Case Study</b><small>11:59 PM</small></div>
+        </div>
+    </aside>
+
+</div>
+
+<script>
+    // Sapaan menyesuaikan jam
+    const jam = new Date().getHours();
+    document.getElementById("sapaan").textContent =
+        jam < 12 ? "Good Morning" : jam < 18 ? "Good Afternoon" : "Good Evening";
+
+    // Nama bisa diubah (klik ikon pensil atau klik namanya)
+    const namaEl = document.getElementById("nama");
+    const editBtn = document.getElementById("editNama");
+    const DEFAULT_NAMA = "Jordan";
+
+    namaEl.textContent = localStorage.getItem("namaUser") || DEFAULT_NAMA;
+
+    function mulaiEdit() {
+        namaEl.contentEditable = "true";
+        namaEl.classList.add("editing");
+        namaEl.focus();
+        const r = document.createRange();
+        r.selectNodeContents(namaEl);
+        const s = getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+    }
+
+    function simpanNama() {
+        namaEl.contentEditable = "false";
+        namaEl.classList.remove("editing");
+        const nama = namaEl.textContent.trim().slice(0, 20) || DEFAULT_NAMA;
+        namaEl.textContent = nama;
+        localStorage.setItem("namaUser", nama);
+    }
+
+    editBtn.addEventListener("click", mulaiEdit);
+    namaEl.addEventListener("click", () => { if (namaEl.contentEditable !== "true") mulaiEdit(); });
+    namaEl.addEventListener("blur", simpanNama);
+    namaEl.addEventListener("keydown", e => {
+        if (e.key === "Enter") { e.preventDefault(); namaEl.blur(); }
+    });
+</script>
+
+</body>
+</html>

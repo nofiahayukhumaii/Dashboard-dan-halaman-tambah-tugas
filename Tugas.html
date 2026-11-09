@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas - CurtinApp</title>
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<div class="app two-col">
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar glass">
+        <div class="brand"><i class='bx bxs-graduation'></i> CurtinApp</div>
+
+        <nav class="menu">
+            <a href="dashboard.html"><i class='bx bxs-dashboard'></i> Dashboard</a>
+            <a href="tugas.html" class="active"><i class='bx bx-task'></i> Tugas</a>
+            <a href="jadwal.html"><i class='bx bx-calendar'></i> Jadwal Belajar</a>
+            <a href="matakuliah.html"><i class='bx bx-book-bookmark'></i> Mata Kuliah</a>
+            <a href="profil.html"><i class='bx bx-user'></i> Profil</a>
+        </nav>
+    </aside>
+
+    <!-- ========== KONTEN ========== -->
+    <main class="main glass">
+
+        <div class="page-head">
+            <h1>Tugas</h1>
+
+            <div class="search">
+                <i class='bx bx-search'></i>
+                <input type="text" id="cari" placeholder="Cari tugas..." autocomplete="off">
+                <i class='bx bx-slider-alt'></i>
+            </div>
+
+            <a href="tambah-tugas.html" class="btn"><i class='bx bx-plus'></i> New Task</a>
+        </div>
+
+        <div class="pills" id="filter">
+            <button class="pill active" type="button" data-status="semua">Semua</button>
+            <button class="pill" type="button" data-status="belum">Belum Mulai</button>
+            <button class="pill" type="button" data-status="jalan">Dikerjakan</button>
+            <button class="pill" type="button" data-status="selesai">Selesai</button>
+        </div>
+
+        <div class="table-wrap">
+            <table class="tugas-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Judul</th>
+                        <th>Mata Kuliah</th>
+                        <th>Tanggal Diberikan</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th>Prioritas</th>
+                    </tr>
+                </thead>
+                <tbody id="isi">
+                    <tr data-status="jalan">
+                        <td><input type="checkbox" class="check"></td>
+                        <td class="judul">Research Images</td>
+                        <td>Desain Grafis</td>
+                        <td>Aug 6</td>
+                        <td>Aug 18</td>
+                        <td><span class="status"><i class="dot jalan"></i>Dikerjakan</span></td>
+                        <td><span class="badge tinggi">Tinggi</span></td>
+                    </tr>
+                    <tr data-status="belum">
+                        <td><input type="checkbox" class="check"></td>
+                        <td class="judul">Document Images</td>
+                        <td>Desain Grafis</td>
+                        <td>Aug 6</td>
+                        <td>Aug 18</td>
+                        <td><span class="status"><i class="dot belum"></i>Belum Mulai</span></td>
+                        <td><span class="badge sedang">Sedang</span></td>
+                    </tr>
+                    <tr data-status="selesai">
+                        <td><input type="checkbox" class="check" checked></td>
+                        <td class="judul">Confirm Concepts</td>
+                        <td>UI/UX</td>
+                        <td>Aug 6</td>
+                        <td>Aug 18</td>
+                        <td><span class="status"><i class="dot selesai"></i>Selesai</span></td>
+                        <td><span class="badge rendah">Rendah</span></td>
+                    </tr>
+                    <tr data-status="jalan">
+                        <td><input type="checkbox" class="check"></td>
+                        <td class="judul">Transcribe Interviews</td>
+                        <td>Komunikasi</td>
+                        <td>Aug 6</td>
+                        <td>Aug 18</td>
+                        <td><span class="status"><i class="dot jalan"></i>Dikerjakan</span></td>
+                        <td><span class="badge sedang">Sedang</span></td>
+                    </tr>
+                    <tr data-status="belum">
+                        <td><input type="checkbox" class="check"></td>
+                        <td class="judul">Wireframe Design</td>
+                        <td>UI/UX</td>
+                        <td>Aug 7</td>
+                        <td>Aug 20</td>
+                        <td><span class="status"><i class="dot belum"></i>Belum Mulai</span></td>
+                        <td><span class="badge tinggi">Tinggi</span></td>
+                    </tr>
+                    <tr data-status="jalan">
+                        <td><input type="checkbox" class="check"></td>
+                        <td class="judul">Final Presentation</td>
+                        <td>Desain Grafis</td>
+                        <td>Aug 8</td>
+                        <td>Aug 22</td>
+                        <td><span class="status"><i class="dot jalan"></i>Dikerjakan</span></td>
+                        <td><span class="badge sedang">Sedang</span></td>
+                    </tr>
+                    <tr id="kosong" hidden>
+                        <td colspan="7" class="empty">Tidak ada tugas yang cocok.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</div>
+
+<script>
+    const kosong = document.getElementById("kosong");
+
+    // Tampilkan tugas yang disimpan dari halaman Tambah Tugas
+    const labelStatus = { belum: "Belum Mulai", jalan: "Dikerjakan", selesai: "Selesai" };
+    const labelPrio = { tinggi: "Tinggi", sedang: "Sedang", rendah: "Rendah" };
+    const tglIndo = s => s.split("-").reverse().join("/");
+
+    function buatSel(teks, kelas) {
+        const td = document.createElement("td");
+        if (kelas) td.className = kelas;
+        td.textContent = teks;
+        return td;
+    }
+
+    JSON.parse(localStorage.getItem("tugasBaru") || "[]").forEach(t => {
+        const tr = document.createElement("tr");
+        tr.dataset.status = t.status;
+
+        const tdCek = document.createElement("td");
+        tdCek.innerHTML = '<input type="checkbox" class="check">';
+        tdCek.firstChild.checked = t.status === "selesai";
+
+        const tdStatus = document.createElement("td");
+        tdStatus.innerHTML = '<span class="status"><i class="dot ' + t.status + '"></i><span></span></span>';
+        tdStatus.querySelector("span span").textContent = labelStatus[t.status];
+
+        const tdPrio = document.createElement("td");
+        tdPrio.innerHTML = '<span class="badge ' + t.prioritas + '"></span>';
+        tdPrio.firstChild.textContent = labelPrio[t.prioritas];
+
+        tr.append(tdCek, buatSel(t.judul, "judul"), buatSel(t.matkul),
+                  buatSel(tglIndo(t.diberikan)), buatSel(tglIndo(t.deadline)), tdStatus, tdPrio);
+        kosong.before(tr);
+    });
+
+    const baris = [...document.querySelectorAll("#isi tr[data-status]")];
+    const cari = document.getElementById("cari");
+    const pills = document.querySelectorAll(".pill");
+    let statusAktif = "semua";
+
+    function tampilkan() {
+        const kata = cari.value.trim().toLowerCase();
+        let ada = 0;
+        baris.forEach(tr => {
+            const cocokStatus = statusAktif === "semua" || tr.dataset.status === statusAktif;
+            const cocokKata = tr.textContent.toLowerCase().includes(kata);
+            tr.hidden = !(cocokStatus && cocokKata);
+            if (!tr.hidden) ada++;
+        });
+        kosong.hidden = ada > 0;
+    }
+
+    pills.forEach(p => p.addEventListener("click", () => {
+        pills.forEach(x => x.classList.remove("active"));
+        p.classList.add("active");
+        statusAktif = p.dataset.status;
+        tampilkan();
+    }));
+
+    cari.addEventListener("input", tampilkan);
+
+    // Centang = tugas selesai (coret judul)
+    baris.forEach(tr => {
+        const cb = tr.querySelector(".check");
+        const tandai = () => tr.classList.toggle("selesai-row", cb.checked);
+        cb.addEventListener("change", tandai);
+        tandai();
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Tugas - CurtinApp</title>
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<div class="app two-col">
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar glass">
+        <div class="brand"><i class='bx bxs-graduation'></i> CurtinApp</div>
+
+        <nav class="menu">
+            <a href="dashboard.html"><i class='bx bxs-dashboard'></i> Dashboard</a>
+            <a href="tugas.html" class="active"><i class='bx bx-task'></i> Tugas</a>
+            <a href="jadwal.html"><i class='bx bx-calendar'></i> Jadwal Belajar</a>
+            <a href="matakuliah.html"><i class='bx bx-book-bookmark'></i> Mata Kuliah</a>
+            <a href="profil.html"><i class='bx bx-user'></i> Profil</a>
+        </nav>
+    </aside>
+
+    <!-- ========== FORM ========== -->
+    <main class="main glass">
+
+        <div class="form-head">
+            <h1>Tambah Tugas</h1>
+            <div class="top-actions">
+                <button class="icon-btn notif" type="button" aria-label="Notifikasi"><i class='bx bxs-bell'></i></button>
+                <button class="icon-btn" type="button" aria-label="Profil"><i class='bx bxs-user'></i></button>
+            </div>
+        </div>
+
+        <form id="formTugas" novalidate>
+            <div class="form-grid">
+
+                <div class="field full">
+                    <label for="judul">Judul Tugas <span>*</span></label>
+                    <input type="text" id="judul" placeholder="Masukkan judul tugas" maxlength="60" required>
+                    <div class="pesan" data-for="judul"></div>
+                </div>
+
+                <div class="field full">
+                    <label for="matkul">Mata Kuliah <span>*</span></label>
+                    <select id="matkul" required>
+                        <option value="">Pilih mata kuliah</option>
+                        <option>Desain Grafis</option>
+                        <option>UI/UX</option>
+                        <option>Komunikasi</option>
+                    </select>
+                    <div class="pesan" data-for="matkul"></div>
+                </div>
+
+                <div class="field">
+                    <label for="diberikan">Tanggal Diberikan <span>*</span></label>
+                    <input type="date" id="diberikan" required>
+                    <div class="pesan" data-for="diberikan"></div>
+                </div>
+
+                <div class="field">
+                    <label for="deadline">Deadline <span>*</span></label>
+                    <input type="date" id="deadline" required>
+                    <div class="pesan" data-for="deadline"></div>
+                </div>
+
+                <div class="field">
+                    <label for="prioritas">Prioritas <span>*</span></label>
+                    <select id="prioritas" required>
+                        <option value="">Pilih prioritas</option>
+                        <option value="tinggi">Tinggi</option>
+                        <option value="sedang">Sedang</option>
+                        <option value="rendah">Rendah</option>
+                    </select>
+                    <div class="pesan" data-for="prioritas"></div>
+                </div>
+
+                <div class="field">
+                    <label for="status">Status <span>*</span></label>
+                    <select id="status" required>
+                        <option value="">Pilih status</option>
+                        <option value="belum">Belum Mulai</option>
+                        <option value="jalan">Dikerjakan</option>
+                        <option value="selesai">Selesai</option>
+                    </select>
+                    <div class="pesan" data-for="status"></div>
+                </div>
+
+                <div class="field full">
+                    <label for="catatan">Catatan</label>
+                    <textarea id="catatan" placeholder="Tulis catatan (opsional)"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="tugas.html" class="btn ghost">Batal</a>
+                <button type="submit" class="btn">Simpan</button>
+            </div>
+        </form>
+    </main>
+
+</div>
+
+<script>
+    const form = document.getElementById("formTugas");
+    const wajib = ["judul", "matkul", "diberikan", "deadline", "prioritas", "status"];
+
+    function pesan(id, teks) {
+        document.querySelector('.pesan[data-for="' + id + '"]').textContent = teks;
+    }
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        let valid = true;
+
+        wajib.forEach(id => {
+            const kosong = !document.getElementById(id).value.trim();
+            pesan(id, kosong ? "Wajib diisi." : "");
+            if (kosong) valid = false;
+        });
+
+        const d1 = document.getElementById("diberikan").value;
+        const d2 = document.getElementById("deadline").value;
+        if (d1 && d2 && d2 < d1) {
+            pesan("deadline", "Deadline tidak boleh sebelum tanggal diberikan.");
+            valid = false;
+        }
+        if (!valid) return;
+
+        const daftar = JSON.parse(localStorage.getItem("tugasBaru") || "[]");
+        daftar.push({
+            judul: document.getElementById("judul").value.trim(),
+            matkul: document.getElementById("matkul").value,
+            diberikan: d1,
+            deadline: d2,
+            prioritas: document.getElementById("prioritas").value,
+            status: document.getElementById("status").value,
+            catatan: document.getElementById("catatan").value.trim()
+        });
+        localStorage.setItem("tugasBaru", JSON.stringify(daftar));
+        location.href = "tugas.html";
+    });
+</script>
+
+</body>
+</html>
